@@ -7,7 +7,7 @@
 import java.util.Arrays;
 import java.util.EmptyStackException;
 
-public final class ArrayStack<T> implements StackInterface<T> {
+public class ArrayStack<T> implements StackInterface<T> {
    private T[] stack; // Array of stack entries
    private int topIndex; // Index of top entry
    private boolean integrityOK = false;
@@ -92,6 +92,23 @@ public final class ArrayStack<T> implements StackInterface<T> {
          topIndex--;
       }
 
+   }
+
+   String evaluatePostfix(String postfix) {
+      StackInterface<String> expressions = new ArrayStack<>();
+      for (int position = 0; position < postfix.length(); position++) {
+         String value = Character.toString(postfix.charAt(position)), frontExpression, backExpression;
+         if (!value.equals("+") && !value.equals("-") && !value.equals("/") && !value.equals("*")
+               && !value.equals("^")) {
+            expressions.push(value);
+         } else {
+            backExpression = expressions.pop();
+            frontExpression = expressions.pop();
+            expressions.push("(" + frontExpression + value + backExpression + ")");
+         }
+      }
+
+      return expressions.pop();
    }
 
    // < Implementations of the stack operations go here. >
