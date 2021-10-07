@@ -6,7 +6,7 @@ import java.util.EmptyStackException;
  * @author Frank M. Carrano and Timothy M. Henry
  * @version 5.0
  */
-public final class LinkedStack<T> implements StackInterface<T> {
+public class LinkedStack<T> implements StackInterface<T> {
    private Node topNode; // References the first node in the chain
 
    public LinkedStack() {
@@ -75,5 +75,54 @@ public final class LinkedStack<T> implements StackInterface<T> {
    @Override
    public void clear() {
       topNode = null;
+   }
+
+   String covertToPostfix(String equation) {
+      StackInterface<Character> operators = new LinkedStack<>();
+      String postfix = "";
+      for (int position = 0; position < equation.length(); position++) {
+         char unit = equation.charAt(position);
+         if (Character.isJavaIdentifierPart(unit))
+            postfix += unit;
+
+         else if (unit == '(')
+            operators.push(unit);
+
+         else if (unit == ')') {
+            while (!operators.isEmpty() && operators.peek() != '(') {
+               postfix += operators.pop();
+            }
+            operators.pop();
+         }
+
+         else if (unit == ' ') {
+         }
+
+         else {
+            while (!operators.isEmpty() && priorityValue(unit) <= priorityValue(operators.peek())) {
+               postfix += operators.pop();
+            }
+            operators.push(unit);
+         }
+
+      }
+      while (!operators.isEmpty()) {
+         postfix += operators.pop();
+      }
+      return postfix;
+   }
+
+   private int priorityValue(char operator) {
+      switch (operator) {
+         case '+':
+         case '-':
+            return 1;
+         case '*':
+         case '/':
+            return 2;
+         case '^':
+            return 3;
+      }
+      return -1;
    }
 } // end LinkedStack
