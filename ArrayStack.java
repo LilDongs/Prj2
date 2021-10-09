@@ -1,9 +1,3 @@
-
-/**
-    A class of stacks whose entries are stored in an array.
-    @author Frank M. Carrano and Timothy M. Henry
-    @version 5.0
-*/
 import java.util.Arrays;
 import java.util.EmptyStackException;
 
@@ -112,6 +106,26 @@ public class ArrayStack<T> implements StackInterface<T> {
       }
 
       return expressionsValues.pop();
+   }
+
+
+   //Extra credit
+   //If you only provide the postfix, it'll still convert to infix
+   String evaluatePostfix(String postfix) {
+      StackInterface<String> expressions = new ArrayStack<>();
+      for (int position = 0; position < postfix.length(); position++) {
+         String value = Character.toString(postfix.charAt(position)), frontExpression, backExpression;
+         if (!value.equals("+") && !value.equals("-") && !value.equals("/") && !value.equals("*")
+               && !value.equals("^")) {
+            expressions.push(value);
+         } else {
+            backExpression = expressions.pop();
+            frontExpression = expressions.pop();
+            expressions.push("(" + frontExpression + value + backExpression + ")");
+         }
+      }
+
+      return expressions.pop();
    }
 
    private double evaluation(char operator, double backExpression, double frontExpression)
