@@ -94,21 +94,42 @@ public class ArrayStack<T> implements StackInterface<T> {
 
    }
 
-   String evaluatePostfix(String postfix) {
-      StackInterface<String> expressions = new ArrayStack<>();
+   double evaluatePostfix(String postfix,String[] variables, double[] values) {
+      StackInterface<Double> expressionsValues = new ArrayStack<>();
+      double answer = 0;
       for (int position = 0; position < postfix.length(); position++) {
-         String value = Character.toString(postfix.charAt(position)), frontExpression, backExpression;
-         if (!value.equals("+") && !value.equals("-") && !value.equals("/") && !value.equals("*")
-               && !value.equals("^")) {
-            expressions.push(value);
+         char currentChar = postfix.charAt(position);
+         double frontExpression, backExpression;
+         if (currentChar != '+' && currentChar != '-' && currentChar != '/' && currentChar != '*'
+               && currentChar != '^') {
+            expressionsValues.push(values[Arrays.asList(variables).indexOf(Character.toString(currentChar))]);
          } else {
-            backExpression = expressions.pop();
-            frontExpression = expressions.pop();
-            expressions.push("(" + frontExpression + value + backExpression + ")");
+            backExpression = expressionsValues.pop();
+            frontExpression = expressionsValues.pop();
+            answer = evaluation(currentChar,backExpression,frontExpression);
+            expressionsValues.push(answer);
          }
       }
 
-      return expressions.pop();
+      return expressionsValues.pop();
+   }
+
+   private double evaluation(char operator, double backExpression, double frontExpression)
+   {
+      switch(operator)
+      {
+         case '+':
+            return frontExpression + backExpression;
+         case '-':          
+            return frontExpression - backExpression;
+         case '/':
+            return frontExpression / backExpression;
+         case '*':
+            return frontExpression * backExpression;
+         case '^':
+            return Math.pow(frontExpression, backExpression);
+      }
+      return 0;
    }
 
    // < Implementations of the stack operations go here. >
