@@ -10,6 +10,6 @@ Joey - Constructed javaDoc, Task 1, Task 4, provided food
 
 All: Logic theory (ON WHITEBOARD!), ate food
 
-c) 
+c) https://github.com/LilDongs/Prj2/blob/main/index.html
 
 d) 
