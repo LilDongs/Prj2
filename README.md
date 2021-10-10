@@ -2,7 +2,7 @@ a) Devon Willis, Joey Cindass, Allison Ly
 
 b) Member's Contribution:
 
-Devon - Added methods and driver classes, added extra credit, proviced snacks
+Devon - Added methods and driver classes, added extra credit, provided snacks
 
 Allison - Task 1, Task 4, provided snacks
 
