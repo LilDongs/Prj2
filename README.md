@@ -1,4 +1,10 @@
-a) Devon Willis, Joey Cindass, Allison Ly
+a) Member's Names:
+
+Devon Willis (username: palicoCodes)
+
+Joey Cindass (username: joeyCin)
+
+Allison Ly (username: ayly8)
 
 b) Member's Contribution:
 
